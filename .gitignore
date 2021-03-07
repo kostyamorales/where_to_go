@@ -116,5 +116,5 @@ dmypy.json
 *.DS_store
 .idea/
 test.py
-.media/
+/media
 test.py
