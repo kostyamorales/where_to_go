@@ -1,11 +1,25 @@
 from django.contrib import admin
 from places.models import Place, Image
+from django.utils.html import format_html
 
 
 class ImageInline(admin.TabularInline):
     model = Image
-    fields = ('img', 'id', 'place')
+    fields = ('img', 'place', 'get_img_preview', 'id',)
     extra = 1
+    readonly_fields = ('get_img_preview',)
+
+    def get_img_preview(self, obj):
+        width = obj.img.width
+        height = obj.img.height
+        max_height = 200
+
+        scale = height / max_height
+        if scale > 1:
+            height = max_height
+            width = int(width / scale)
+
+        return format_html(f'<img src="{obj.img.url}" width="{width}" height={height} />')
 
 
 @admin.register(Place)
@@ -14,5 +28,5 @@ class PlaceAdmin(admin.ModelAdmin):
 
 
 @admin.register(Image)
-class PlaceAdmin(admin.ModelAdmin):
+class ImageAdmin(admin.ModelAdmin):
     pass
