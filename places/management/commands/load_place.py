@@ -20,9 +20,9 @@ class Command(BaseCommand):
     help = 'loads new places'
 
     def handle(self, *args, **options):
-        for file_name in os.listdir('static/places'):
+        for file_name in os.listdir('places_json'):
             if file_name.endswith('.json'):
-                with open(f'static/places/{file_name}') as file:
+                with open(f'places_json/{file_name}') as file:
                     place_feature = json.loads(file.read())
                     imgs_urls = place_feature['imgs']
                     place, created = Place.objects.update_or_create(title=place_feature['title'], defaults={
