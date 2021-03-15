@@ -26,8 +26,8 @@ class Command(BaseCommand):
                     place_feature = json.loads(file.read())
                     imgs_urls = place_feature['imgs']
                     place, created = Place.objects.update_or_create(title=place_feature['title'], defaults={
-                        'description_short': place_feature['description_short'],
-                        'description_long': place_feature['description_long'],
+                        'short_description': place_feature['description_short'],
+                        'long_description': place_feature['description_long'],
                         'lat': place_feature['coordinates']['lat'],
                         'lon': place_feature['coordinates']['lng']
                     })
