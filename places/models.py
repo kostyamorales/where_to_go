@@ -14,9 +14,9 @@ class Place(models.Model):
 
 
 class Image(models.Model):
-    img = models.ImageField('Картинка', null=True)
-    place = models.ForeignKey('Place', on_delete=models.CASCADE, null=True, related_name='imgs')
-    order = models.PositiveIntegerField(default=0)
+    img = models.ImageField('Картинка')
+    place = models.ForeignKey('Place', on_delete=models.CASCADE, related_name='imgs')
+    order = models.PositiveIntegerField(default=0, blank=True)
 
     class Meta():
         ordering = ('order',)
