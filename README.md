@@ -36,7 +36,7 @@ python3 manage.py createsuperuser
 
 Добавлять новые точки на карте можно вводя данные через админку.
 
-Так же вы можете добавить файлы `json` [с такой структурой](https://raw.githubusercontent.com/devmanorg/where-to-go-places/master/places/Антикафе%20Bizone.json) в папку `static/places/` и запустить команду:
+Так же вы можете добавить файлы `json` [с такой структурой](https://raw.githubusercontent.com/devmanorg/where-to-go-places/master/places/Антикафе%20Bizone.json) в папку `places_json/` и запустить команду:
 
 ```
 python3 manage.py load_place
