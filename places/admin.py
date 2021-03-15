@@ -11,16 +11,9 @@ class ImageInline(SortableInlineAdminMixin, admin.TabularInline):
     readonly_fields = ('get_img_preview',)
 
     def get_img_preview(self, obj):
-        width = obj.img.width
-        height = obj.img.height
-        max_height = 200
-
-        scale = height / max_height
-        if scale > 1:
-            height = max_height
-            width = int(width / scale)
-
-        return format_html(f'<img src="{obj.img.url}" width="{width}" height={height} />')
+        if obj.img:
+            return format_html('<img src="{}" height="{}">', obj.img.url, 200)
+        return 'Картинка ещё не загружена'
 
 
 @admin.register(Place)
@@ -31,4 +24,4 @@ class PlaceAdmin(admin.ModelAdmin):
 
 @admin.register(Image)
 class ImageAdmin(admin.ModelAdmin):
-    pass
+    raw_id_fields = ('place',)
