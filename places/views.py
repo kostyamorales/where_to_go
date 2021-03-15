@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404
 
 def show_place_page(request, id):
     place = get_object_or_404(Place, id=id)
-    imgs = [img.img.url for img in Image.objects.filter(place=place)]
+    imgs = [img.img.url for img in place.imgs.all()]
     place_json = {
         'title': place.title,
         'imgs': imgs,
