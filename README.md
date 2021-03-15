@@ -1,5 +1,5 @@
 # Интерактивная карта города с интересными местами, их фото и описанием.
-![](static/ezgif.com-gif-maker_4nWhtfQ.gif)
+![](gif/preview_map.gif)
 Пример работы [сайта](http://kmorales.pythonanywhere.com).
 
 ## Запуск
