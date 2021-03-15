@@ -6,7 +6,7 @@ from io import BytesIO
 import requests
 
 
-def loads_imgs(place, urls):
+def upload_imgs(place, urls):
     for num, url in enumerate(urls, 0):
         r = requests.get(url)
         r.raise_for_status()
@@ -25,12 +25,10 @@ class Command(BaseCommand):
                 with open(f'static/places/{file_name}') as file:
                     place_feature = json.loads(file.read())
                     imgs_urls = place_feature['imgs']
-                    place, created = Place.objects.get_or_create(
-                        title=place_feature['title'],
-                        description_short=place_feature['description_short'],
-                        description_long=place_feature['description_long'],
-                        lat=place_feature['coordinates']['lat'],
-                        lon=place_feature['coordinates']['lng']
-                    )
-                    place.save()
-                    loads_imgs(place, imgs_urls)
+                    place, created = Place.objects.update_or_create(title=place_feature['title'], defaults={
+                        'description_short': place_feature['description_short'],
+                        'description_long': place_feature['description_long'],
+                        'lat': place_feature['coordinates']['lat'],
+                        'lon': place_feature['coordinates']['lng']
+                    })
+                    upload_imgs(place, imgs_urls)
