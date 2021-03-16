@@ -21,14 +21,15 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         for file_name in os.listdir('places_json'):
-            if file_name.endswith('.json'):
-                with open(f'places_json/{file_name}') as file:
-                    place_feature = json.loads(file.read())
-                    imgs_urls = place_feature['imgs']
-                    place, created = Place.objects.update_or_create(title=place_feature['title'], defaults={
-                        'short_description': place_feature['description_short'],
-                        'long_description': place_feature['description_long'],
-                        'lat': place_feature['coordinates']['lat'],
-                        'lon': place_feature['coordinates']['lng']
-                    })
-                    upload_imgs(place, imgs_urls)
+            if not file_name.endswith('.json'):
+                continue
+            with open(f'places_json/{file_name}') as file:
+                place_feature = json.loads(file.read())
+            imgs_urls = place_feature['imgs']
+            place, created = Place.objects.update_or_create(title=place_feature['title'], defaults={
+                'short_description': place_feature['description_short'],
+                'long_description': place_feature['description_long'],
+                'lat': place_feature['coordinates']['lat'],
+                'lon': place_feature['coordinates']['lng']
+            })
+            upload_imgs(place, imgs_urls)
